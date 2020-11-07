@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserPost;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,9 +18,11 @@ class UserController extends Controller
         return view('users.form');
     }
 
-    public function store(Request $request)
+    public function store(StoreUserPost $request)
     {
-        //
+        User::create($request->all());
+
+        return redirect()->route('users.index');
     }
 
     public function show($id)
