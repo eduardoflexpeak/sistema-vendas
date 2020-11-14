@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
 use App\Http\Requests\StoreUserPost;
 use App\Services\UserService;
 use App\User;
@@ -9,9 +10,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(UserDataTable $userDataTable)
     {
-        return view('users.index');
+        return $userDataTable->render('users.index');
     }
 
     public function create()
