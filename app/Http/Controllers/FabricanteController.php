@@ -58,6 +58,6 @@ class FabricanteController extends Controller
 
     public function destroy(Fabricante $fabricante)
     {
-        //
+        dd($fabricante);
     }
 }

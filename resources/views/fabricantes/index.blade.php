@@ -19,4 +19,16 @@
 
 @section('js')
     {{ $dataTable->scripts() }}
+
+    <script>
+        function excluir(rota) {
+            axios.delete(rota)
+                .then((data) => {
+                    alert('Sucesso ao apagar')
+                })
+                .catch((err) => {
+                    alert('Erro ao apagar')
+                })
+        }
+    </script>
 @stop
