@@ -37,9 +37,9 @@ class UserController extends Controller
                 ->withErro('Ocorreu um erro ao salvar');
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     public function edit(User $user)
