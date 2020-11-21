@@ -42,9 +42,9 @@ class UserController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.form', compact('user'));
     }
 
     public function update(Request $request, $id)
