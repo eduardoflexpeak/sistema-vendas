@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Produto;
+use Collective\Html\FormFacade;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +22,14 @@ class ProdutoDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'produto.action');
+            ->addColumn('action', function ($produto) {
+                $rotaExcluir = route('produtos.destroy', $produto);
+
+                $acoes = link_to_route('produtos.edit', 'Editar', $produto, ['class' => 'btn btn-primary btn-sm']);
+                $acoes .= FormFacade::button('Excluir', ['class' => 'btn btn-danger btn-sm ml-1', 'onclick' => "excluir('$rotaExcluir')"]);
+
+                return $acoes;
+            });
     }
 
     /**
@@ -65,8 +73,8 @@ class ProdutoDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+                  ->width(120)
+                  ->title('Ações'),
             Column::make('id'),
             Column::make('descricao'),
             Column::make('estoque'),
