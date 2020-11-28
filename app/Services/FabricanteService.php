@@ -27,4 +27,14 @@ class FabricanteService
             return null;
         }
     }
+
+    public static function destroy($fabricante)
+    {
+        try {
+            return $fabricante->delete();
+        } catch (Throwable $th) {
+            Log::error($th->getMessage());
+            return null;
+        }
+    }
 }

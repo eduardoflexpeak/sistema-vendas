@@ -58,6 +58,8 @@ class FabricanteController extends Controller
 
     public function destroy(Fabricante $fabricante)
     {
-        dd($fabricante);
+        $exclusao = FabricanteService::destroy($fabricante);
+
+        return response($exclusao, $exclusao ? 200 : 400);
     }
 }
