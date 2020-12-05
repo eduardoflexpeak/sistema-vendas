@@ -37,4 +37,18 @@ class ClienteService
             return null;
         }
     }
+
+    public static function clientesSelect($request)
+    {
+        if (isset($request['pesquisa'])) {
+            return Cliente::select('id', 'nome as text')
+                        ->where('nome', 'like', "%" . $request['pesquisa'] . "%")
+                        ->limit(10)
+                        ->get();
+        }
+
+        return Cliente::select('id', 'nome as text')
+                        ->limit(10)
+                        ->get();
+    }
 }

@@ -32,6 +32,11 @@ class ProdutoController extends Controller
                 ->withErro('Ocorreu um erro ao salvar');
     }
 
+    public function show(Produto $produto)
+    {
+        return response($produto, 200);
+    }
+
     public function edit(Produto $produto)
     {
         return view('produtos.form', compact('produto'));
@@ -55,5 +60,10 @@ class ProdutoController extends Controller
         $exclusao = ProdutoService::destroy($produto);
 
         return response($exclusao, $exclusao ? 200 : 400);
+    }
+
+    public function produtosSelect(Request $request)
+    {
+        return ProdutoService::produtosSelect($request->all());
     }
 }
