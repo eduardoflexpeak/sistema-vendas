@@ -55,12 +55,12 @@
               </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
                     {!! Form::label('cep', 'CEP') !!}
-                    {!! Form::number('cep', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('cep', null, ['class' => 'form-control', 'onfocusout' => 'buscaCep()']) !!}
                     @error('cep')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -110,4 +110,19 @@
 @stop
 
 @section('js')
+  <script>
+      function buscaCep () {
+        let cep = $('#cep').val()
+
+        axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(({ data }) => {
+                $('#logradouro').val(data.logradouro)
+                $('#bairro').val(data.bairro)
+                $('#localidade').val(data.localidade)
+            })
+            .catch(() => {
+                Swal.fire('Ops!', 'Erro ao consultar CEP', 'error')
+            })
+      }
+  </script>
 @stop
